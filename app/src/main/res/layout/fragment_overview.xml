@@ -38,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_year"
                 android:textColor="@color/black"
                 android:minWidth="80dp"
                 android:inputType="number"

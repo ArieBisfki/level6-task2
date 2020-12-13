@@ -18,7 +18,7 @@ class MovieAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<M
         fun databind(moviePosition: Int) {
             val movie = moviesList[moviePosition]
 
-            Glide.with(context).load(movie.posterUrl).into(itemView.iv_thumbnail)
+            Glide.with(context).load(movie.getPosterUrl()).into(itemView.iv_thumbnail)
 
             @SuppressLint("StringFormatInvalid")
             itemView.tv_rank.text = context.getString(R.string.item_movie_rank_text, moviePosition + 1)

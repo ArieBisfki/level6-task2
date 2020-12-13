@@ -18,15 +18,15 @@ data class Movie(
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int
 ) {
-    val releaseDate: GregorianCalendar by lazy {
+    fun getReleaseDate(): GregorianCalendar {
         val (year, month, day) = this.releaseDateString.split('-').map(String::toInt)
 
         // Gregorian calendar uses indexes for month. Release date returned from Tmdb API does not. So convert month to index.
-        GregorianCalendar(year, month - 1, day)
+        return GregorianCalendar(year, month - 1, day)
     }
 
-    val posterUrl: String by lazy {
-        "$IMAGES_BASE_URL/$posterPath"
+    fun getPosterUrl(): String {
+        return "$IMAGES_BASE_URL/$posterPath"
     }
 
     companion object {
