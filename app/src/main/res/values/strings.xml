@@ -14,4 +14,5 @@
     <string name="fragment_overview_btn_text">submit</string>
     <string name="fragment_overview_input_year_hint">Year</string>
     <string name="item_movie_rank_text">%1$d.</string>
+    <string name="fragment_detail_overview_section_title">overview</string>
 </resources>

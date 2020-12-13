@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.madlevel6task2.R
 import com.example.madlevel6task2.adapter.MovieAdapter
 import com.example.madlevel6task2.databinding.FragmentOverviewBinding
 import com.example.madlevel6task2.model.Movie
@@ -20,7 +22,7 @@ class OverviewFragment : Fragment() {
     private val vm: MoviesViewModel by activityViewModels()
     private val moviesList = mutableListOf<Movie>()
     private lateinit var binding: FragmentOverviewBinding
-    private val moviesAdapter = MovieAdapter(moviesList)
+    private val moviesAdapter = MovieAdapter(moviesList, ::handleMovieOnClick)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -38,16 +40,17 @@ class OverviewFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     private fun observeMovies() {
         vm.moviesList.observe(viewLifecycleOwner) { moviesList ->
             this.moviesList.clear()
             this.moviesList.addAll(moviesList)
             moviesAdapter.notifyDataSetChanged()
         }
+    }
+
+    private fun handleMovieOnClick(movie: Movie) {
+        vm.setSelectedMovie(movie)
+        findNavController().navigate(R.id.action_overviewFragment_to_detailFragment)
     }
 
     private fun handleOnSubmit(view: View) {

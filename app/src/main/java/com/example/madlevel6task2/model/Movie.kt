@@ -5,7 +5,7 @@ import java.util.*
 
 data class Movie(
     @SerializedName("adult") val adult: Boolean,
-    @SerializedName("backdrop_path") val backdropPath: String,
+    @SerializedName("backdrop_path") val backdropPath: String?,
     @SerializedName("genre_ids") val genreIds: List<Int>,
     @SerializedName("id") val id: Int,
     @SerializedName("original_title") val originalTitle: String,
@@ -23,6 +23,12 @@ data class Movie(
 
         // Gregorian calendar uses indexes for month. Release date returned from Tmdb API does not. So convert month to index.
         return GregorianCalendar(year, month - 1, day)
+    }
+
+    fun getBackdropUrl(): String? {
+        if (backdropPath == null) return null
+
+        return "$IMAGES_BASE_URL/$backdropPath"
     }
 
     fun getPosterUrl(): String {

@@ -11,17 +11,24 @@ import com.example.madlevel6task2.R
 import com.example.madlevel6task2.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(
+    private val moviesList: List<Movie>,
+    private val onClickHandler: (Movie) -> Unit
+) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private lateinit var context: Context
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun databind(moviePosition: Int) {
-            val movie = moviesList[moviePosition]
+        init {
+            itemView.setOnClickListener { onClickHandler(moviesList[adapterPosition]) }
+        }
+
+        fun databind() {
+            val movie = moviesList[adapterPosition]
 
             Glide.with(context).load(movie.getPosterUrl()).into(itemView.iv_thumbnail)
 
-            @SuppressLint("StringFormatInvalid")
-            itemView.tv_rank.text = context.getString(R.string.item_movie_rank_text, moviePosition + 1)
+            itemView.tv_rank.text =
+                context.getString(R.string.item_movie_rank_text, adapterPosition + 1)
         }
     }
 
@@ -34,7 +41,7 @@ class MovieAdapter(private val moviesList: List<Movie>) : RecyclerView.Adapter<M
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.databind(position)
+        holder.databind()
 
     override fun getItemCount() = moviesList.size
 }

@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fragment_detail_poster_margin_right">25dp</dimen>
+    <dimen name="fragment_game_overview_section_title_vertical_margin">25dp</dimen>
+    <dimen name="fragment_detail_body_padding">25dp</dimen>
 </resources>
